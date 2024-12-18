@@ -16,8 +16,8 @@ beta=0.1
 
 DPO_RUN_NAME="llava-onevision-qwen2-7b-ov_dpo-beta${beta}-epoch${EPOCH}"
 DPO_CLEAN_NAME="${DPO_RUN_NAME##*/}"
-OUTPUT_DIR="<your-output-folder>/${DPO_CLEAN_NAME}"
-DATA_PATH="<your-data-path>"
+OUTPUT_DIR="/checkpoint/${DPO_CLEAN_NAME}"
+DATA_PATH="/llava_next_data/llava_next_raw_format_processed.json"
 
 echo $DPO_RUN_NAME
 
@@ -30,7 +30,7 @@ ACCELERATE_CPU_AFFINITY=1 torchrun --nproc_per_node="${NUM_GPUS}" --nnodes="${NN
     --gamma=0 \
     --version $PROMPT_VERSION \
     --data_path=$DATA_PATH \
-    --image_folder "<your-image-folder>" \
+    --image_folder "/llava_next_data" \
     --mm_tunable_parts="mm_vision_tower,mm_mlp_adapter,mm_language_model" \
     --unfreeze_mm_vision_tower True \
     --vision_tower ${VISION_MODEL_VERSION} \
